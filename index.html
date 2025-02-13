@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Envelope</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #ffebf1;
+    }
+
+    .container {
+      position: relative;
+      width: 250px;
+      height: 200px;
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: #e57373;
+      border-radius: 0px 0px 7px 7px;
+    }
+
+    .top-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background-color: #ff8a80;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transition: transform 0.5s ease-in-out;
+      transform-origin: top;
+      z-index: 10;
+
+    }
+
+    .inner-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #e57373;
+      clip-path: polygon(0 0, 50% 50%, 100% 0%, 100% 100%, 0 100%);
+      z-index: 10;
+    }
+
+    .seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      background-color: #d32f2f;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      font-family: Arial, sans-serif;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s ease-in-out;
+      z-index: 11;
+    }
+
+    .letter {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      width: 180px;
+      height: 220px;
+      transform-origin: 50% 50%;
+      background-color: white;
+      transform: translate(-50%, 20px) rotate(90deg);
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      color: #d32f2f;
+      text-align: center;
+      padding: 20px;
+      transition: transform 1s ease-in-out;
+
+    }
+
+    @keyframes letter-bottom {
+      0% {
+        bottom: 0;
+        z-index: 1;
+      }
+
+      50% {
+        bottom: 100%;
+        transform: translate(-50%, 20px) rotate(90deg);
+      }
+
+      70% {
+        z-index: 12;
+      }
+
+      100% {
+        transform: translate(-50%, -10px) rotate(0deg);
+        bottom: 0;
+        z-index: 12;
+      }
+    }
+
+    .letter.opened {
+
+      animation: letter-bottom 1s linear forwards;
+      z-index: 12;
+    }
+
+    .letter.unfolded::after {
+      opacity: 1;
+    }
+
+    .top-flap.open {
+      transform: rotateX(180deg);
+      z-index: 2;
+    }
+
+    .seal.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="envelope">
+      <div class="top-flap"></div>
+      <div class="inner-flap"></div>
+      <div class="letter">
+        <p>Happy Valentine’s Day</p>
+        <p>sadfdsaf</p>
+
+      </div>
+      <div class="seal">❤️</div>
+    </div>
+  </div>
+
+  <script>
+    const seal = document.querySelector(".seal");
+    const topFlap = document.querySelector(".top-flap");
+    const letter = document.querySelector(".letter");
+
+    seal.addEventListener("click", () => {
+      topFlap.classList.add("open");
+      seal.classList.add("hidden");
+      setTimeout(() => {
+        letter.classList.add("opened");
+      }, 300);
+      setTimeout(() => {
+        letter.classList.add("unfolded");
+      }, 1000);
+    });
+  </script>
+
+</body>
+
+</html>
